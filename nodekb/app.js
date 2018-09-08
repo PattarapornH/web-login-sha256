@@ -2,116 +2,108 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database');
 
-mongoose.connect('mongodb://localhost/nodekb');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
-//check connection
-db.once('open', function(){
+// Check connection
+db.once('open', function () {
     console.log('Connected to MongoDB');
 });
 
-//check for db error
-db.on('error',function(err){
+// Check for DB errors
+db.on('error', function (err) {
     console.log(err);
 });
 
-//init app
+// Init App
 const app = express();
 
-//bring in models
+// Bring in Models
 let Article = require('./models/article');
 
-//load view engine
-app.set('views',path.join(__dirname,'views'));
-app.set('view engine','pug');
+// Load View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 // Body Parser Middleware
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-//set public folder
-app.use(express.static(path.join(__dirname,'public')));
+// Set Public Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-//home route
-app.get('/', function(req,res){
-    Article.find({},function(err,articles) {
-        if(err){
+// Express Session Middleware
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
+// Express Validator Middleware
+app.use(expressValidator({
+    errorFormatter: function (param, msg, value) {
+        var namespace = param.split('.')
+            , root = namespace.shift()
+            , formParam = root;
+
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
+
+// Passport Config
+require('./config/passport')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', function (req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+});
+
+// Home Route
+app.get('/', function (req, res) {
+    Article.find({}, function (err, articles) {
+        if (err) {
             console.log(err);
         } else {
-            res.render('index',{
+            res.render('index', {
                 title: 'Articles',
-                articles : articles
+                articles: articles
             });
         }
     });
 });
 
-//get a single article
-app.get('/article/:id',function(req,res){
-    Article.findById(req.params.id, function(err, article){
-        res.render('article',{
-            article:article
-        });
-    });
-});
+// Route Files
+let articles = require('./routes/articles');
+let users = require('./routes/users');
+app.use('/articles', articles);
+app.use('/users', users);
 
-// Add Route
-app.get('/articles/add', function(req,res){
-    res.render('add_article',{
-        title : 'Add Article'
-    });
-});
-
-//add submit POST route
-app.post('/articles/add',function(req,res) {
-    let article = new Article();
-    article.title = req.body.title;
-    article.author = req.body.author;
-    article.body = req.body.body;
-    article.save(function(err){
-        if(err){
-            console.log(err);
-            return ;
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-//load edit form
-app.get('/article/edit/:id', function (req, res) {
-    Article.findById(req.params.id, function (err, article) {
-        res.render('edit_article', {
-            title:'Edit Article',
-            article: article
-        });
-    });
-});
-
-//update submit POST route
-app.post('/articles/edit/:id', function (req, res) {
-    let article = {};
-    article.title = req.body.title;
-    article.author = req.body.author;
-    article.body = req.body.body;
-
-    let query = {_id:req.params.id}
-
-    Article.update(query,article,function (err) {
-        if (err) {
-            console.log(err);
-            return;
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-//start server
-app.listen(3000,function(){
-    console.log('Server started on port 3000...')
+// Start Server
+app.listen(3000, function () {
+    console.log('Server started on port 3000...');
 });
