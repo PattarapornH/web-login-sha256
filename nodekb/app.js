@@ -2,18 +2,18 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb:localhost/nodekb');
-// let db = mongoose.connection;
+mongoose.connect('mongodb://localhost/nodekb');
+let db = mongoose.connection;
 
 //check connection
-// db.once('open', function(){
-//     console.log('Connected to MongoDB');
-// });
+db.once('open', function(){
+    console.log('Connected to MongoDB');
+});
 
 //check for db error
-// db.on('error',function(err){
-//     console.log(err);
-// });
+db.on('error',function(err){
+    console.log(err);
+});
 
 //init app
 const app = express();
@@ -28,40 +28,16 @@ app.set('view engine','pug');
 
 //home route
 app.get('/', function(req,res){
-    // Article,find({},function(err,articles) {
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-    //         res.render('index',{
-    //             title: 'Articles',
-    //             articles : articles
-    //         });
-    //     }
-    // });
-    let articles = [
-        {
-            id : 5910502026,
-            title : "Article One",
-            author : 'Pattarporn Hanphadungkit',
-            body : 'This is article one'
-        },
-        {
-            id : 2,
-            title : "Article Two",
-            author : 'Pattarporn Hanphadungkit',
-            body : 'This is article two'
-        },
-        {
-            id : 3,
-            title : "Article One",
-            author : 'Pattarporn Hanphadungkit',
-            body : 'This is article three'
+    Article.find({},function(err,articles) {
+        if(err){
+            console.log(err);
+        } else {
+            res.render('index',{
+                title: 'Articles',
+                articles : articles
+            });
         }
-    ];
-    res.render('index',{
-        title: 'Articles',
-        articles: articles
-    })
+    });
 });
 
 // Add Route
