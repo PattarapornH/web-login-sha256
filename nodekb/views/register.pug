@@ -1,8 +1,10 @@
 extends layout
 
 block content
+    br
     h1 Register
-        form(method='POST', action='/users/register')
+    br
+    form(method='POST', action='/users/register')
         #form-group
             label Name:
             input.form-control(name='name', type='text')
