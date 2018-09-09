@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 
@@ -20,7 +19,7 @@ router.post('/add', function (req, res) {
     req.checkBody('title', 'Title is required').notEmpty();
     req.checkBody('body', 'Body is required').notEmpty();
 
-    // get error
+    // get errors
     let errors = req.validationErrors();
 
     if (errors) {
@@ -32,7 +31,6 @@ router.post('/add', function (req, res) {
         let article = new Article();
         article.title = req.body.title;
         article.author = req.user._id;
-        // article.author = req.body.author;
         article.body = req.body.body;
 
         article.save(function (err) {
@@ -81,7 +79,7 @@ router.post('/edit/:id', function (req, res) {
     });
 });
 
-// delete article
+// del article
 router.delete('/:id', function (req, res) {
     if (!req.user._id) {
         res.status(500).send();

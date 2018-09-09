@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -52,7 +51,7 @@ router.post('/register', function (req, res) {
                         console.log(err);
                         return;
                     } else {
-                        req.flash('success', 'You are now registered and can login');
+                        req.flash('success', 'You are now registered and can log in');
                         res.redirect('/users/login');
                     }
                 });
