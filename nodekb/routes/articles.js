@@ -32,6 +32,7 @@ router.post('/add', function (req, res) {
         let article = new Article();
         article.title = req.body.title;
         article.author = req.user._id;
+        // article.author = req.body.author;
         article.body = req.body.body;
 
         article.save(function (err) {
@@ -102,7 +103,7 @@ router.delete('/:id', function (req, res) {
     });
 });
 
-// get Single article
+// get single article
 router.get('/:id', function (req, res) {
     Article.findById(req.params.id, function (err, article) {
         User.findById(article.author, function (err, user) {

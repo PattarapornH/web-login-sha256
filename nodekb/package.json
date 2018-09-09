@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app"
   },
-  "author": "Pattaraporn Hanphadungkit",
+  "author": "Pattaraporn Hanphadungkit 5910502026",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

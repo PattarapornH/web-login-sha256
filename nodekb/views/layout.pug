@@ -34,7 +34,7 @@ html
         .container
             != messages('messges', locals)
             if errors
-                each errors, i in errors
+                each error, i in errors
                     div(class="alert alert-danger") #{error.msg}
             block content
             br
