@@ -93,7 +93,7 @@ app.get('/', function (req, res) {
             console.log(err);
         } else {
             res.render('index', {
-                title: 'Articles',
+                title: 'Country',
                 articles: articles
             });
         }

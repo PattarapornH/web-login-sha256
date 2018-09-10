@@ -2,8 +2,8 @@ extends layout
 
 block content
     h1= article.title
-    h5 Written by #{author}
-    p= article.body
+    //- h5 Written by #{author}
+    //- p= article.body
     hr
     if user
         if user.id ==article.author

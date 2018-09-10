@@ -10,7 +10,7 @@ let User = require('../models/user');
 // add route
 router.get('/add', ensureAuthenticated, function (req, res) {
     res.render('add_article', {
-        title: 'Add Article'
+        title: 'Add Country'
     });
 });
 

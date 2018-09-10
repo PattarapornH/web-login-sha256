@@ -1,13 +1,27 @@
 extends layout
 
 block content
+    br
     h1 #{title}
-        form(method='POST', action='/articles/add')
-            #form-group
-                label Title:
-                input.form-control(name='title', type='text')
-            #form-group
-                label Body:
-                textarea.form-control(name='body')
+    br
+    form(method='POST', action='/articles/add')
+        #form-group
+            label Country's name:
+            input.form-control(name='title', type='text')
+        br
+        #form-group
+            label Medals:
             br
-            input.btn.btn-primary(type='submit',value='Submit')
+            textarea.form-control(name='body')
+            br
+            h4
+                span.badge.badge-warning Gold
+                input.form-control(name='title', type='text')
+            br
+            h4
+                span.badge.badge-secondary Silver
+            br
+            h4
+                span.badge.badge-danger Bronze    
+        br
+        input.btn.btn-primary(type='submit',value='Submit')
