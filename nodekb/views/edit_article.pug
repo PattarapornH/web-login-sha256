@@ -3,14 +3,8 @@ extends layout
 block content
     br
     h1 #{title}
-    br
-    //- p= article.title:
     br    
     form(method='POST', action='/articles/edit/'+article._id)
-        #form-group
-            //- label article.title:
-            //- input.form-control(name='title', type='text')
-        br
         #form-group.row
             label.col-sm-1.col-from-label Gold
             div.mx-sm2
@@ -27,9 +21,3 @@ block content
                 input.form-control(name='bronze', type='text',value=article.bronze)
         br
         input.btn.btn-primary(type='submit',value='Submit')
-        //- #form-group
-        //-     label Title:
-        //-     input.form-control(name='title', type='text', value=article.title)
-        //- #form-group
-        //-     label Body:
-        //-     textarea.form-control(name='body')= article.body

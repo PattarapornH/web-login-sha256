@@ -68,7 +68,7 @@ router.post('/edit/:id', function (req, res) {
     // article.title = req.body.title;
     // article.author = req.body.author;
     // article.body = req.body.body;
-    article.title = req.title;
+    // article.title = req.title;
     // article.author = article.body.author;
     article.gold = req.body.gold;
     article.silver = req.body.silver;
