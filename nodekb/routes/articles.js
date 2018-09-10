@@ -17,7 +17,7 @@ router.get('/add', ensureAuthenticated, function (req, res) {
 // add submit POST route
 router.post('/add', function (req, res) {
     req.checkBody('title', 'Title is required').notEmpty();
-    req.checkBody('body', 'Body is required').notEmpty();
+    // req.checkBody('body', 'Body is required').notEmpty();
 
     // get errors
     let errors = req.validationErrors();
@@ -31,7 +31,10 @@ router.post('/add', function (req, res) {
         let article = new Article();
         article.title = req.body.title;
         article.author = req.user._id;
-        article.body = req.body.body;
+        // article.body = req.body.body;
+        article.gold = req.body.gold;
+        article.silver = req.body.silver;
+        article.bronze = req.body.bronze
 
         article.save(function (err) {
             if (err) {
@@ -53,7 +56,7 @@ router.get('/edit/:id', ensureAuthenticated, function (req, res) {
             res.redirect('/');
         }
         res.render('edit_article', {
-            title: 'Edit Article',
+            title: 'Update Medals of ' + article.title,
             article: article
         });
     });
@@ -62,9 +65,14 @@ router.get('/edit/:id', ensureAuthenticated, function (req, res) {
 // update submit POST route
 router.post('/edit/:id', function (req, res) {
     let article = {};
-    article.title = req.body.title;
-    article.author = req.body.author;
-    article.body = req.body.body;
+    // article.title = req.body.title;
+    // article.author = req.body.author;
+    // article.body = req.body.body;
+    article.title = req.title;
+    // article.author = article.body.author;
+    article.gold = req.body.gold;
+    article.silver = req.body.silver;
+    article.bronze = req.body.bronze;
 
     let query = { _id: req.params.id }
 

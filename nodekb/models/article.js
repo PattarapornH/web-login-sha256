@@ -10,8 +10,20 @@ let articleSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    body: {
-        type: String,
+    // body: {
+    //     type: String,
+    //     required: true
+    // }
+    gold: {
+        type: Number,
+        required: true
+    },
+    silver: {
+        type: Number,
+        required: true
+    },
+    bronze: {
+        type: Number,
         required: true
     }
 });
