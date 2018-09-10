@@ -9,19 +9,19 @@ block content
             label Country's name:
             input.form-control(name='title', type='text')
         br
-        #form-group
-            label Medals:
-            br
-            textarea.form-control(name='body')
-            br
-            h4
-                span.badge.badge-warning Gold
-                input.form-control(name='title', type='text')
-            br
-            h4
-                span.badge.badge-secondary Silver
-            br
-            h4
-                span.badge.badge-danger Bronze    
+        #form-group.row
+            label.col-sm-1.col-from-label Gold
+            div.mx-sm2
+                input.form-control(name='gold', type='text')
+        br
+        #form-group.row
+            label.col-sm-1.col-from-label Silver
+            div.mx-sm2
+                input.form-control(name='silver', type='text')
+        br
+        #form-group.row
+            label.col-sm-1.col-from-label Bronze
+            div.mx-sm2
+                input.form-control(name='bronze', type='text')
         br
         input.btn.btn-primary(type='submit',value='Submit')
