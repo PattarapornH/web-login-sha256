@@ -51,10 +51,10 @@ router.post('/add', function (req, res) {
 // load edit form
 router.get('/edit/:id', ensureAuthenticated, function (req, res) {
     Article.findById(req.params.id, function (err, article) {
-        if (article.author != req.user._id) {
+        /*if (article.author != req.user._id) {
             req.flash('danger', 'Not Authorized');
             res.redirect('/');
-        }
+        }*/
         res.render('edit_article', {
             title: 'Update Medals of ' + article.title,
             article: article
@@ -69,11 +69,9 @@ router.post('/edit/:id', function (req, res) {
     // article.author = req.body.author;
     // article.body = req.body.body;
     // article.title = req.title;
-    // article.author = article.body.author;
     article.gold = req.body.gold;
     article.silver = req.body.silver;
     article.bronze = req.body.bronze;
-
     let query = { _id: req.params.id }
 
     Article.update(query, article, function (err) {
