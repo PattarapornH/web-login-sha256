@@ -4,7 +4,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
@@ -25,8 +24,6 @@ db.on('error', function (err) {
 // init app
 const app = express();
 
-// bring in models
-let Article = require('./models/article');
 
 // load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -88,22 +85,11 @@ app.get('*', function (req, res, next) {
 
 // home route
 app.get('/', function (req, res) {
-    Article.find({}, function (err, articles) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('index', {
-                title: 'Country',
-                articles: articles
-            });
-        }
-    });
+    res.render('login');
 });
 
 // route files
-let articles = require('./routes/articles');
 let users = require('./routes/users');
-app.use('/articles', articles);
 app.use('/users', users);
 
 // start server

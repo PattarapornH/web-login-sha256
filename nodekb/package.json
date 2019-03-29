@@ -19,6 +19,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
     "jquery": "^3.3.1",
+    "mongodb": "^3.2.2",
     "mongoose": "^5.2.13",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

@@ -1,6 +1,7 @@
 
-extends layout
-
+//- extends layout
+//- link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+title Login
 block content
     br
     h1 Login
@@ -13,4 +14,6 @@ block content
             label Password:
             input.form-control(name='password',type='password')
         br
-        input.btn.btn-primary(type='submit',value='Submit')
+        button(type='submit', value='Submit') Login
+    br
+    a.nav-link(href="/users/register") Register
