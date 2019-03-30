@@ -15,9 +15,11 @@ router.get('/register', function (req, res) {
 router.post('/register', function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
+    const password2 = req.body.password2;
 
     req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
+    req.checkBody('password2', 'Passwords do not match').equals(req.body.password)
     
     User.findOne({ username: username }, function (err, document) {
         if(!document){
