@@ -1,22 +1,26 @@
 //- extends layout
 
+link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
 title Register
 block content
     br
-    h1 Register
+    h1(style='margin-left : 20px;') Register
     br
     form(method='POST', action='/users/register')
-        #form-group
-            label Username:
-            input.form-control(name='username',type='text')
-        #form-group
-            label Password:
-            input.form-control(name='password',type='password')
-        #form-group
-            label Confirm Password:
-            input.form-control(name='password2',type='password')
+        #form-group.form-inline
+            label(style='margin-left : 50px;') Username:
+            input.form-control.mx-sm-3(name='username',type='text')
         br
-        input.btn.btn-primary(type='submit',value='Submit')
+        #form-group.form-inline
+            label(style='margin-left : 50px;') Password:
+            input.form-control.mx-sm-3(name='password',type='password')
+        br
+        #form-group.form-inline
+            label(style='margin-left : 50px;') Confirm Password:
+            input.form-control.mx-sm-3(name='password2',type='password')
+        br
+        input.btn.btn-primary(type='submit',value='Submit', style='margin-left : 50px;')
     br
-    a.nav-link(href="/") Login
+    p(style = 'margin-left: 50px; display:inline-block;') Already have an account?
+    a.nav-link(href="/",style = 'display:inline-block;') Login
     

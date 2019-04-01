@@ -1,19 +1,22 @@
 
 //- extends layout
-//- link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
 title Login
 block content
     br
-    h1 Login
+    h1(style='margin-left : 20px;') Login
     br
     form(method='POST', action='/users/login')
-        #form-group
-            label Username:
-            input.form-control(name='username',type='text')
-        #form-group
-            label Password:
-            input.form-control(name='password',type='password')
+        #form-group.form-inline
+            label(style='margin-left : 50px;') Username:
+            input.form-control.mx-sm-3(name='username',type='text')
         br
-        button(type='submit', value='Submit') Login
-    br
-    a.nav-link(href="/users/register") Register
+        #form-group.form-inline
+            label(style='margin-left : 50px;') Password:
+            input.form-control.mx-sm-3(name='password',type='password')
+        br
+        button.btn.btn-primary(type='submit', value='submit' style='margin-left : 50px;') Login
+        //- button.btn.btn-primary(type='button') Login
+        //- button(type='submit', value='Submit') Login
+    p(style = 'margin-left: 50px; display:inline-block;') Don't have any account?    
+    a.nav-link(href="/users/register" style = 'display:inline-block;') Register
